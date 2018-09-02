@@ -100,6 +100,9 @@ export default {
 </script>
 
 <style>
+.CityWeatherday h1 {
+  margin-bottom: 20px;
+}
 .home {
   display: flex;
   width: 100%
@@ -110,7 +113,8 @@ export default {
   position: sticky;
   top: 20px;
   margin-top: -100px;
-  height: 800px;
+  height: 900px;
+  background: rgba(255, 255, 255, 0.2);
   }
 .CityWeatherday {
    width: 80%;
@@ -119,10 +123,13 @@ export default {
 }
 .CityWeatherday10
 {
-  padding-top: 3%
+  margin-top: 3%;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .selectDay {
   display: flex;
+  font-weight: bold;
   justify-content: center;
 }
 .selectDay div {
@@ -131,6 +138,7 @@ export default {
   border: 1px solid black;
   border-radius: 5px;
   padding: 15px;
+  background: rgba(255, 255, 255, 0.6);
 }
 .selectDay div:hover {
   border: 1px solid #8a3cff;
@@ -140,7 +148,8 @@ transform: scale(1.1);
 transition:0.7s;
 transform-style: preserve-3d;
 font-weight: 900;
-cursor: pointer
+cursor: pointer;
+background: rgba(255, 255, 255, 0.9);
 }
 .inputSearch{
   display: flex;
@@ -155,7 +164,7 @@ cursor: pointer
   width:100%;
   position: static;
   margin-top: 10px;
-  height: 800px;
+  min-height: 800px;
   padding-bottom: 30px;
   }
   .CityWeatherday {

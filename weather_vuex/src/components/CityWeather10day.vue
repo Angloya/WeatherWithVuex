@@ -45,18 +45,17 @@ font-size: 25px;
 em {
   font-size: 30px;
 }
-.weatherCityDay {
-  flex-grow: 2
-}
 .weatherCityDay{
 display: flex;
 justify-content: center;
-flex-wrap: wrap
+flex-wrap: wrap;
 }
 .weatherCityDay li {
   list-style-type: none;
-  margin: 5px;
-  width: 12%;
+  margin: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  width: 15%;
+  min-width: 220px
 }
 @media only screen and (max-width: 1050px) {
   .weatherCityDay{
@@ -69,7 +68,8 @@ align-items: center;
   margin: 10px;
   width: 100%;
   max-width: 350px;
-  border: 1px solid #8a3cff;
+  border: 1px solid black;
+   background: rgba(255, 255, 255, 0,4);
 }
 .weatherCityDay li:hover {
 -webkit-transform: none;

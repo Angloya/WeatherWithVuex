@@ -44,7 +44,14 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+.main {
+ height:100%;
+ min-height: 800px
+}
+.search {
+margin-left: 5px;
+}
 .flip-enter-active{
 transition: all 2s ease;
 }

@@ -11,13 +11,22 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Poiret+One&subset=cyrillic,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Abel');
 #app {
   font-family: 'Poiret One', cursive;
   text-align: center;
+  height:100%;
   }
  * {
 padding: 0;
-margin: 0
+margin: 0;
+  }
+  body {
+    height:100%;
+     min-height:100%;
+     background-image: url("./assets/background.jpg");
+     background-size: cover;
+     background-repeat: no-repeat;
   }
 .search {
 justify-content: center;
@@ -61,5 +70,25 @@ h2{
 #nav a.router-link-exact-active {
   color: #666666;
 }
+@media only screen and (max-width: 550px) {
+#app {
+font-family: 'Abel', sans-serif;
+}
+p{
+font-size: 15px
+}
+h3{
+font-size: 20px
+}
 
+h2{
+  font-size: 25px;
+}
+h1{
+  font-size: 25px;
+}
+em {
+  font-size: 25px;
+}
+}
 </style>

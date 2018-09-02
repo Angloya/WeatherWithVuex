@@ -63,6 +63,7 @@ flex-wrap: wrap
   border: 1px solid black;
   margin: 20px;
   width: 20%;
+  background: rgba(255, 255, 255, 0.4);
 }
 .weatherCityDay li:hover {
 -webkit-transform: scale(1.05);
@@ -71,6 +72,7 @@ transform: scale(1.05);
 transition:0.7s;
 transform-style: preserve-3d;
 border: 1px solid #8a3cff;
+background: rgba(255, 255, 255, 0.8);
 }
 @media only screen and (max-width: 1050px) {
   .weatherCityDay{
@@ -80,7 +82,7 @@ align-items: center;
 .weatherCityDay li {
   padding-right: 0px;
   margin: 20px;
-  width: 100%;
+  width: 70%;
   max-width: 350px;
 }
 .weatherCityDay li:hover {

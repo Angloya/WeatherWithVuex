@@ -67,7 +67,7 @@ export default new Vuex.Store({
       context.commit('show', false)
       context.commit('cities', {})
       setTimeout(() => {
-        Vue.http.get('http://api.apixu.com/v1/search.json?key=3d5ff657c00e4e12a8593943183108&q=' + term).then(response => {
+        Vue.http.get('https://api.apixu.com/v1/search.json?key=3d5ff657c00e4e12a8593943183108&q=' + term).then(response => {
           if (response.body.length !== 0) {
             context.commit('cities', response.body)
           } else {
@@ -84,7 +84,7 @@ export default new Vuex.Store({
     },
     Weather (context, url) {
       context.commit('searching', true)
-      Vue.http.get('http://api.apixu.com/v1/current.json?key=3d5ff657c00e4e12a8593943183108&q=' + url).then(response => {
+      Vue.http.get('https://api.apixu.com/v1/current.json?key=3d5ff657c00e4e12a8593943183108&q=' + url).then(response => {
         context.commit('weatherLocation', response.body.location)
         context.commit('weatherCurrent', response.body.current)
         context.commit('weatherCurrentCondition', response.body.current.condition)
@@ -98,7 +98,7 @@ export default new Vuex.Store({
     },
     WeatherCity (context, url) {
       context.commit('searching', true)
-      Vue.http.get('http://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=3').then(response => {
+      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=3').then(response => {
         context.commit('weatherCity', response.body)
         context.commit('weatherCityDay', response.body.forecast.forecastday)
         context.commit('weatherCurrent', {})
@@ -110,21 +110,21 @@ export default new Vuex.Store({
       context.commit('searching', false)
     },
     WeatherCity5 (context, url) {
-      Vue.http.get('http://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=5').then(response => {
+      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=5').then(response => {
         context.commit('weatherCityDay5', response.body.forecast.forecastday)
       }, response => {
         console.log('ERROR', response)
       })
     },
     WeatherCity7 (context, url) {
-      Vue.http.get('http://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=7').then(response => {
+      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=7').then(response => {
         context.commit('weatherCityDay7', response.body.forecast.forecastday)
       }, response => {
         console.log('ERROR', response)
       })
     },
     WeatherCity10 (context, url) {
-      Vue.http.get('http://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=10').then(response => {
+      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=10').then(response => {
         context.commit('weatherCityDay10', response.body.forecast.forecastday)
       }, response => {
         console.log('ERROR', response)

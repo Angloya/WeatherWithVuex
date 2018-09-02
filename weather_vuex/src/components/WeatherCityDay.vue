@@ -102,10 +102,11 @@ em {
 .weathers div {
   padding: 20px;
   margin: 20px;
-  border: 1px solid #8a3cff;
+  border: 1px solid black;
   border-radius: 5px;
   width: 320px;
   height: 350px;
+  background: rgba(255, 255, 255, 0.5)
 }
 .weathers div:hover {
 -webkit-transform: scale(1.1);
@@ -113,6 +114,7 @@ em {
 transform: scale(1.1);
 transition:0.7s;
 transform-style: preserve-3d;
+background: rgba(255, 255, 255, 0.8);
 cursor: pointer
 }
 .tempInfo {
@@ -130,7 +132,7 @@ cursor: pointer
   margin: 10px;
   border-radius: 5px;
   width: 330px;
-  height: 350px;
+  height: 400px;
 }
 }
 @media only screen and (max-width: 350px) {
@@ -142,7 +144,7 @@ cursor: pointer
   margin: 10px;
   border-radius: 5px;
   width: 250px;
-  height: 450px;
+  height: 350px;
 }
 }
 

@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style scoped>
+.search {
+  height: 100%;
+}
 .inputSearch{
   display: flex;
   align-items:center;
@@ -74,13 +77,14 @@ padding-top: 10px
 }
 .result {
 list-style-type: none;
-border: 1px solid  #8a3cff;
+border: 1px solid  black;
 margin: 10px;
 padding: 10px;
 font-size: 20px;
 font-weight: 900;
 cursor: pointer;
-border-radius: 4px
+border-radius: 4px;
+background: rgba(255, 255, 255, 0.6);
 }
 .result:hover {
 -webkit-transform: scale(1.1);
@@ -88,5 +92,9 @@ border-radius: 4px
 transform: scale(1.1);
 transition:0.7s;
 transform-style: preserve-3d;
+background: rgba(255, 255, 255, 0.9);
+}
+input#inputSearch  {
+  padding-left: 10px;
 }
 </style>
