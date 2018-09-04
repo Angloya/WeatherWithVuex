@@ -6,18 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    time: {},
+    timeError: {},
     cities: [],
-    weatherLocation: {},
     weatherCity: {},
+    weather: {},
     weatherCityDay: {},
-    weatherCityDay5: {},
-    weatherCityDay7: {},
-    weatherCityDay10: {},
-    weatherCurrent: {},
-    weatherCurrentCondition: {},
+    weatherCondition: {},
     searching: false,
-    error: false,
-    show: false,
+    errorSearch: false,
+    showWeather: false,
     cityUrl: ''
   },
   mutations: {
@@ -27,26 +25,14 @@ export default new Vuex.Store({
     cityUrl (state, cityUrl) {
       state.cityUrl = cityUrl
     },
-    weatherLocation (state, weatherLocation) {
-      state.weatherLocation = weatherLocation
+    weather (state, weather) {
+      state.weather = weather
     },
-    weatherCurrent (state, weatherCurrent) {
-      state.weatherCurrent = weatherCurrent
-    },
-    weatherCurrentCondition (state, weatherCurrentCondition) {
-      state.weatherCurrentCondition = weatherCurrentCondition
+    weatherCondition (state, weatherCondition) {
+      state.weatherCondition = weatherCondition
     },
     weatherCity (state, weatherCity) {
       state.weatherCity = weatherCity
-    },
-    weatherCityDay5 (state, weatherCityDay5) {
-      state.weatherCityDay5 = weatherCityDay5
-    },
-    weatherCityDay7 (state, weatherCityDay7) {
-      state.weatherCityDay7 = weatherCityDay7
-    },
-    weatherCityDay10 (state, weatherCityDay10) {
-      state.weatherCityDay10 = weatherCityDay10
     },
     weatherCityDay (state, weatherCityDay) {
       state.weatherCityDay = weatherCityDay
@@ -54,81 +40,58 @@ export default new Vuex.Store({
     searching (state, bool) {
       state.searching = bool
     },
-    error (state, bool) {
-      state.error = bool
+    errorSearch (state, bool) {
+      state.errorSearch = bool
     },
-    show (state, bool) {
-      state.show = bool
+    showWeather (state, bool) {
+      state.showWeather = bool
     }
   },
   actions: {
     searchCities (context, term) {
       context.commit('searching', true)
-      context.commit('show', false)
+      context.commit('showWeather', false)
       context.commit('cities', {})
-      setTimeout(() => {
+      this.time = setTimeout(() => {
         Vue.http.get('https://api.apixu.com/v1/search.json?key=3d5ff657c00e4e12a8593943183108&q=' + term).then(response => {
           if (response.body.length !== 0) {
             context.commit('cities', response.body)
           } else {
-            context.commit('error', true)
+            context.commit('errorSearch', true)
           }
         }, response => {
           console.log('ERROR', response)
-          context.commit('error', true)
+          context.commit('errorSearch', true)
         })
         context.commit('searching', false)
         context.commit('cityUrl', '')
       }, 1000)
-      setTimeout(() => { context.commit('error', false) }, 3000)
+      this.time = setTimeout(() => { context.commit('errorSearch', false) }, 3000)
     },
     Weather (context, url) {
       context.commit('searching', true)
       Vue.http.get('https://api.apixu.com/v1/current.json?key=3d5ff657c00e4e12a8593943183108&q=' + url).then(response => {
-        context.commit('weatherLocation', response.body.location)
-        context.commit('weatherCurrent', response.body.current)
-        context.commit('weatherCurrentCondition', response.body.current.condition)
-        context.commit('show', true)
+        context.commit('weather', response.body)
+        context.commit('weatherCondition', response.body.current.condition)
+        context.commit('showWeather', true)
         context.commit('cityUrl', url)
       }, response => {
         console.log('ERROR', response)
       })
       context.commit('searching', false)
       context.commit('cities', [])
+      clearTimeout(this.timeError)
     },
-    WeatherCity (context, url) {
+    WeatherCity (context, [url, day]) {
       context.commit('searching', true)
-      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=3').then(response => {
+      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=' + day).then(response => {
         context.commit('weatherCity', response.body)
         context.commit('weatherCityDay', response.body.forecast.forecastday)
-        context.commit('weatherCurrent', {})
-        context.commit('weatherLocation', {})
-        context.commit('show', false)
+        context.commit('showWeather', false)
       }, response => {
         console.log('ERROR', response)
       })
       context.commit('searching', false)
-    },
-    WeatherCity5 (context, url) {
-      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=5').then(response => {
-        context.commit('weatherCityDay5', response.body.forecast.forecastday)
-      }, response => {
-        console.log('ERROR', response)
-      })
-    },
-    WeatherCity7 (context, url) {
-      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=7').then(response => {
-        context.commit('weatherCityDay7', response.body.forecast.forecastday)
-      }, response => {
-        console.log('ERROR', response)
-      })
-    },
-    WeatherCity10 (context, url) {
-      Vue.http.get('https://api.apixu.com/v1/forecast.json?key=3d5ff657c00e4e12a8593943183108&q=' + url + '&days=10').then(response => {
-        context.commit('weatherCityDay10', response.body.forecast.forecastday)
-      }, response => {
-        console.log('ERROR', response)
-      })
     }
   },
   plugins: [createPersistedState()]

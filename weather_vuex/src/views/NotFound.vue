@@ -20,11 +20,11 @@ export default {
   color: #666666;
 }
 @media only screen and (max-width: 550px) {
-  .not-found img {
-    width: 70%;
-  }
-  .not-found h1 {
-    font-size: 26px;
+.not-found img {
+  width: 70%;
+}
+.not-found h1 {
+  font-size: 26px;
   }
 }
 </style>

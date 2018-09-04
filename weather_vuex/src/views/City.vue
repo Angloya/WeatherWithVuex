@@ -4,23 +4,21 @@
     <div class="home">
       <CityWeather class="CityWeather" />
       <div class="CityWeatherday">
-        <h1>Weather
-      <em v-if="day3">3</em>
-      <em v-if="day5">5</em>
-      <em v-if="day7"> detailed forecast 7</em>
-      <em v-if="day10">7</em>
-      days
-    </h1>
-    <div class="selectDay">
-  <div v-if="!day3" @click="toggle3 ()"> 3 days </div>
-  <div v-if="!day5" @click="toggle5 ()"> 5 days </div>
-  <div v-if="!day7" @click="toggle7 ()">  detailed forecast 7 days</div>
-  <div v-if="!day10" @click="toggle10 ()">7 days</div>
-    </div>
-      <CityWeather3day v-if="day3"/>
-      <CityWeather5day v-if="day5"/>
-      <CityWeather7day v-if="day7"/>
-      <CityWeather10day v-if="day10" class="CityWeatherday10"/>
+        <h1> Weather
+          <em v-if="day3">3</em>
+          <em v-if="day5">5</em>
+          <em v-if="day7"> detailed forecast 7</em>
+          <em v-if="day10">7</em>
+            days
+        </h1>
+        <div class="selectDay">
+          <div v-if="!day3" @click="toggle3 ('3')"> 3 days </div>
+          <div v-if="!day5" @click="toggle5 ('5')"> 5 days </div>
+          <div v-if="!day7" @click="toggle7 ('7')">  detailed forecast 7 days</div>
+          <div v-if="!day10" @click="toggle10 ('10')">7 days</div>
+        </div>
+        <weatherDay v-if="!day10"/>
+        <weather10day v-if="day10" class="CityWeatherday10"/>
       </div>
     </div>
   </div>
@@ -29,71 +27,70 @@
 <script>
 // @ is an alias to /src
 import CityWeather from '@/components/CityWeather.vue'
-import CityWeather3day from '@/components/CityWeather3day.vue'
-import CityWeather5day from '@/components/CityWeather5day.vue'
-import CityWeather7day from '@/components/CityWeather7day.vue'
-import CityWeather10day from '@/components/CityWeather10day.vue'
+import weatherDay from '@/components/WeatherDay.vue'
+import weather10day from '@/components/Weather10day.vue'
 
 export default {
   name: 'City',
   components: {
     CityWeather,
-    CityWeather3day,
-    CityWeather5day,
-    CityWeather7day,
-    CityWeather10day
+    weatherDay,
+    weather10day
   },
   data () {
     return {
       date: '',
-      day3: true,
+      day3: false,
       day5: false,
       day7: false,
-      day10: false
-
+      day10: true
     }
   },
   computed: {
     cityUrl () {
       return this.$store.state.cityUrl
+    },
+    weatherCityDay () {
+      return this.$store.state.weatherCityDay
     }
   },
   created () {
     this.isDate()
   },
   methods: {
-    toggle3 () {
+    toggle3 (day) {
       this.day3 = true
       this.day5 = false
       this.day7 = false
       this.day10 = false
-      this.$store.dispatch('WeatherCity', this.cityUrl)
+      this.$store.dispatch('WeatherCity', [this.cityUrl, day])
     },
-    toggle5 () {
+    toggle5 (day) {
       this.day3 = false
       this.day5 = true
       this.day7 = false
       this.day10 = false
-      this.$store.dispatch('WeatherCity5', this.cityUrl)
+      this.$store.dispatch('WeatherCity', [this.cityUrl, day])
     },
-    toggle7 () {
+    toggle7 (day) {
       this.day3 = false
       this.day5 = false
       this.day7 = true
       this.day10 = false
-      this.$store.dispatch('WeatherCity7', this.cityUrl)
+      this.$store.dispatch('WeatherCity', [this.cityUrl, day])
     },
-    toggle10 () {
+    toggle10 (day) {
       this.day3 = false
       this.day5 = false
       this.day7 = false
       this.day10 = true
-      this.$store.dispatch('WeatherCity10', this.cityUrl)
+      this.$store.dispatch('WeatherCity', [this.cityUrl, day])
     },
     isDate () {
       let date = new Date()
       this.date = date.toLocaleTimeString() + ' ' + date.toDateString()
       setTimeout(this.isDate, 1000)
+      clearTimeout(this.date)
     }
   }
 }
@@ -143,13 +140,13 @@ export default {
 .selectDay div:hover {
   border: 1px solid #8a3cff;
   -webkit-transform: scale(1.1);
--ms-transform: scale(1.1);
-transform: scale(1.1);
-transition:0.7s;
-transform-style: preserve-3d;
-font-weight: 900;
-cursor: pointer;
-background: rgba(255, 255, 255, 0.9);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition:0.7s;
+  transform-style: preserve-3d;
+  font-weight: 900;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.9);
 }
 .inputSearch{
   display: flex;
@@ -157,7 +154,7 @@ background: rgba(255, 255, 255, 0.9);
   justify-content: center;
 }
 @media only screen and (max-width: 1200px) {
-  .home {
+.home {
   flex-direction: column
 }
 .CityWeather {
@@ -166,12 +163,12 @@ background: rgba(255, 255, 255, 0.9);
   margin-top: 10px;
   min-height: 800px;
   padding-bottom: 30px;
-  }
-  .CityWeatherday {
-    border-top: 1px solid black;
-   width: 100%;
-   margin-top: 30px;
-   justify-content: center;
+}
+.CityWeatherday {
+  border-top: 1px solid black;
+  width: 100%;
+  margin-top: 30px;
+  justify-content: center;
 }
 .selectDay {
   flex-direction: column
@@ -183,12 +180,12 @@ background: rgba(255, 255, 255, 0.9);
   padding: 15px;
 }
 .selectDay div:hover {
--webkit-transform: none;
--ms-transform: none;
-transform: none;
-font-weight: normal;
-cursor: pointer;
-border: 1px solid black;
-}
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+  font-weight: normal;
+  cursor: pointer;
+  border: 1px solid black;
+  }
 }
 </style>
