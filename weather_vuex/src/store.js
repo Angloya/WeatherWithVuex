@@ -81,6 +81,7 @@ export default new Vuex.Store({
       context.commit('searching', false)
       context.commit('cities', [])
       clearTimeout(this.timeError)
+      clearTimeout(this.time)
     },
     WeatherCity (context, [url, day]) {
       context.commit('searching', true)
